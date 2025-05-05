@@ -1,2 +1,2 @@
-# build-your-own-redis-with-cpp
+# build-my-own-redis-with-cpp
 Building a redis from scratch
