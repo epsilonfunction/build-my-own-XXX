@@ -42,14 +42,36 @@ setsockopt(fd, SOL_SOCKET, SO_REUSEADDR,&val, sizeof(val)); // this merely passe
 		// relates to delayed packets and TCP TIME_WAIT. nontrivial
 		// SO_RESUSEADDR is important as it allows for binidng to same IP:port after a restart. the contrary is undesirable for TCP.
 struct sockaddr_in {
-	uint16_t sin_family; // -> AF_INET
-	uint16_t sin_port; // -> port in big-endian 
-	struct in_addr sin_addr; // -> IPv4
+	uint16_t 	sin_family; // -> AF_INET
+	uint16_t 	sin_port; // -> port in big-endian 
+	struct 	in_addr sin_addr; // -> IPv4
 };
 
 struct in_addr {
 	uint32_t	s_addr; // IPv4 in big-endian
 }
+// NOTE: endian-ness refers to how bytes are stored.
+	// little endian : least significant byte comes first
+	// big endian: 	most significant byte comes first
+// most things are in little-endian, therefore big-endian inputs need to undergo byte-swap
+
+uint32_t htonl(uint32_t hostlong); 	// CPU endian <=> big-endian
+//uint16_t hton
+
+// For IPv6
+struct sockaddr_in6{
+	uint16_t	sin6_family; 	// AF_INET6
+	uint16_t	sin6_port;	// port in big-endian
+	uint32_t	sin6_flowinfo;	// ignore according to tutorial
+	struct in6_addr	sin6_addr; 	// IPv6 address
+	uint32_t	sin6_scope_id;	// ignore according to tutorial
+}
+struct in6_addr {
+	uint8_t		s6_addr[16];	// IPv6 addr in 16 char
+}
+
+
+
 
 struct sockaddr_in addr = {};
 addr.sin_family = AF_INET;
